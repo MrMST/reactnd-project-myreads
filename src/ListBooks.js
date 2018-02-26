@@ -4,9 +4,11 @@ import Bookshelf from './Bookshelf'
 class ListBooks extends Component {
   render() {
 
-    let currentlyReading = this.props.books.filter((book) => { return book.shelf === 'currentlyReading'})
-    let wantToRead = this.props.books.filter((book) => { return book.shelf === 'wantToRead'})
-    let read = this.props.books.filter((book) => { return book.shelf === 'read'})
+    const { books, onChangeShelf } = this.props
+
+    let currentlyReading = books.filter((book) => { return book.shelf === 'currentlyReading'})
+    let wantToRead = books.filter((book) => { return book.shelf === 'wantToRead'})
+    let read = books.filter((book) => { return book.shelf === 'read'})
 
     return(
       <div className="list-books">
@@ -18,14 +20,17 @@ class ListBooks extends Component {
             <Bookshelf
               books={currentlyReading}
               title='Currently Reading'
+              onChangeShelf={onChangeShelf}
             />
             <Bookshelf
               books={read}
               title='Read'
+              onChangeShelf={onChangeShelf}
             />
             <Bookshelf
               books={wantToRead}
               title='Want To Read'
+              onChangeShelf={onChangeShelf}
             />
           </div>
         </div>
