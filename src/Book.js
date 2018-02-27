@@ -26,7 +26,7 @@ class Book extends Component {
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">
-          {book.authors.map(author => <span>{author}</span>)
+          {book.authors.map(author => <span key={author}>{author}</span>)
             .reduce((prev, curr) => [prev, ', ', curr])}
         </div>
       </div>
