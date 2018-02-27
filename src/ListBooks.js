@@ -7,9 +7,9 @@ class ListBooks extends Component {
 
     const { books, onChangeShelf } = this.props
 
-    let currentlyReading = books.filter((book) => { return book.shelf === 'currentlyReading'})
-    let wantToRead = books.filter((book) => { return book.shelf === 'wantToRead'})
-    let read = books.filter((book) => { return book.shelf === 'read'})
+    let currentlyReading = books.filter( book => book.shelf === 'currentlyReading')
+    let wantToRead = books.filter( book => book.shelf === 'wantToRead')
+    let read = books.filter( book => book.shelf === 'read')
 
     return(
       <div className="list-books">
