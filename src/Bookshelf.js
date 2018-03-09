@@ -3,9 +3,7 @@ import Book from './Book'
 
 class Bookshelf extends Component {
   render() {
-
-    const { books, title, onChangeShelf } = this.props
-
+    const { books, title, onChangeShelf } = this.props;
     return(
       <div className="bookshelf">
         <h2 className="bookshelf-title">{title}</h2>

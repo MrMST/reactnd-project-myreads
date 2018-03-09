@@ -1,12 +1,42 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
+import * as BooksAPI from './BooksAPI'
 
 class Search extends Component {
+
+  state = {
+    books: [],
+  };
+
+  onSearch = (event) => {
+    const booksAlreadyOnShelf = this.props.books;
+
+    this.setState({ books: [] });
+
+    const query = event.target.value.trim();
+
+    if (!query || query.length < 3) {
+      return;
+    }
+
+    BooksAPI.search(query, 20).then((books) => {
+      if(!books || books.error) {
+        return;
+      }
+
+      books = books.map((book) => {
+        const bookOnShelf = booksAlreadyOnShelf.find(shelfBook => shelfBook.id === book.id);
+        book.shelf = (bookOnShelf) ? bookOnShelf.shelf: "none";
+        return book;
+      })
+
+      this.setState({ books });
+    })
+  }
+
   render() {
-
-    const { books, onSearch, onChangeShelf } = this.props
-
+    const {onChangeShelf } = this.props;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -20,13 +50,13 @@ class Search extends Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input onChange={ onSearch } type="text" placeholder="Search by title or author"/>
-          
+            <input onChange={ this.onSearch } type="text" placeholder="Search by title or author"/>
+
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {books.map((book => (
+            { this.state.books.map((book => (
               <Book
                 key={book.id}
                 book={book}
